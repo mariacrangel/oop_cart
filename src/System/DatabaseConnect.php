@@ -5,7 +5,7 @@ namespace Src\System;
 use \PDO;
 use \PDOException;
 
-class DatabaseConnect implements IConnection
+class DatabaseConnect extends PDO implements IConnection
 {
         
         /**
@@ -15,30 +15,80 @@ class DatabaseConnect implements IConnection
         
         private $dbconn = null;
 
+        /**
+         * Database server connection
+         * @var string 
+        **/
+
+        private $hostname;
+
+        /**
+         * Database name 
+         * @var string 
+        **/
+
+        private $dbname;
+
+        /**
+         * Database port connection
+         * @var string 
+        **/
+
+        private $dbport;
+
+        /**
+         * Database user connection
+         * @var string 
+        **/
+
+        private $dbuser;
+
+        /**
+         * Database password connection
+         * @var string 
+        **/
+
+        private $dbpass;
+
         public function __construct()
         {
-                $hostname = getenv('HOSTNAME');
+                $this->hostname = getenv('HOSTNAME');
                 
-                $dbname = getenv('DBNAME');
+                $this->dbname = getenv('DBNAME');
 
-                $dbport = getenv('DBPORT');
+                $this->dbport = getenv('DBPORT');
                 
-                $dbuser = getenv('DBUSER');
+                $this->dbuser = getenv('DBUSER');
                 
-                $dbpass = getenv('DBPASS');
-                try
+                $this->dbpass = getenv('DBPASS');
+                
+                parent::__construct('mysql' . ':host=' . $this->hostname . ';dbname=' . $this->dbname, $this->dbuser, $this->dbpass);
+                
+               /* try
                 {
-                        $this->dbconn = new PDO( "mysql:host=$hostname;port=$dbport;charset=utf8mb4;dbname=$dbname", $dbuser, $dbpass );
+                        $this->dbconn = new PDO( "mysql:host=$this->hostname;port=$this->dbport;charset=utf8mb4;dbname=$this->dbname", $this->dbuser, $this->dbpass );
                         
                         $this->dbconn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 
                 }catch (PDOException $e) 
                 {
                         echo $e->getMessage();
-                }
-
+                }*/
         }
 
+        public function connect()
+        {
+                try
+                {
+                        $this->dbconn = new PDO( "mysql:host=$this->hostname;port=$this->dbport;charset=utf8mb4;dbname=$this->dbname", $this->dbuser, $this->dbpass );
+                        
+                        $this->dbconn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                }catch (PDOException $e) 
+                {
+                        echo $e->getMessage();
+                }
+        }
         public function getConnection()
         {
                 return $this->dbconn;
