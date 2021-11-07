@@ -1,0 +1,15 @@
+{
+    "name": "project/task4",
+    "description": "challenge for application",
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "test/"
+        }
+    }
+
+}
