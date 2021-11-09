@@ -69,6 +69,15 @@ class Shipping implements IModel
 
                 return $stat->fetchALL(\PDO::FETCH_ASSOC);
         }
+        
+        public function getGroupByIndex(array $index)
+        {
+                /**
+                 * query to retrieve data by another filed which is an Index,
+                 *  but not is the id.
+                 */
+                
+        }
 
         public function remove()
         {

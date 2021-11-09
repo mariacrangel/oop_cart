@@ -1,3 +1,5 @@
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+
 CREATE DATABASE IF NOT EXISTS task4  DEFAULT CHARACTER SET utf8 ;
 
 use task4;
@@ -80,7 +82,7 @@ CREATE TABLE IF NOT EXISTS rate (
         rpoints int(11) NOT NULL,
         rcomments text NULL,
         created datetime NOT NULL DEFAULT current_timestamp(),
-        PRIMARY KEY (rid),
+        PRIMARY KEY (rid,pid),
         FOREIGN KEY (pid) REFERENCES product(pid)
 );
 DROP TABLE IF EXISTS orders;

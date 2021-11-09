@@ -75,8 +75,25 @@ class User implements IModel
                 return $stat->fetchALL(\PDO::FETCH_ASSOC);
         }
 
+        public function getGroupByIndex(array $index)
+        {
+                //
+        }
+
         public function remove()
         {
            //     
+        }
+
+        public function getPasswd(array $id)
+        {
+                $query = "select upassword from " . $this->tlb_name . " where uemail= ?";
+                
+                $stat = $this->db->prepare($query);
+
+                $stat->execute($id);
+
+                return $stat->fetch(\PDO::FETCH_OBJ);
+
         }
 }

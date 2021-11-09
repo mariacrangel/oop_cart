@@ -70,6 +70,11 @@ class Currency implements IModel
 
                 return $stat->fetchALL(\PDO::FETCH_ASSOC);
         }
+        
+        public function getGroupByIndex(array $index)
+        {
+                //
+        }
 
         public function remove()
         {

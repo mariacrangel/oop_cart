@@ -54,7 +54,9 @@ class Product implements IModel
         public function getAll()
         {
                 //
-                $query = " select * from " . $this->tlb_name ;
+                $query = " select * from " . $this->tlb_name . " left join  
+                photo on ". $this->tlb_name . ".pid = photo.pid group by ".
+                $this->tlb_name . ".pid";
 
                 $stat = $this->db->prepare($query);
                 
@@ -66,15 +68,25 @@ class Product implements IModel
         public function getById(array $id)
         {
                 //
-                var_dump($id);
-                $query = "select * from " . $this->tlb_name . " where pid= ?";
+                $query = " select * from " . $this->tlb_name . " left join photo
+                on ". $this->tlb_name . ".pid = photo.pid where ". 
+                $this->tlb_name . ".pid= ? ";
                 
                 $stat = $this->db->prepare($query);
-                var_dump($stat);
+
                 $stat->execute($id);
 
                 return $stat->fetchALL(\PDO::FETCH_ASSOC);
 
+        }
+
+        public function getGroupByIndex(array $index)
+        {
+                /**
+                 * query to retrieve data by another filed which is an Index,
+                 *  but not is the id.
+                 */
+                
         }
 
         public function remove()

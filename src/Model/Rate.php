@@ -25,12 +25,14 @@ class Rate implements IModel
                 {
                         $query = "insert into " . $this->tlb_name . " 
                         ( 
-                                pid,
-                                rpoints,
-                                rcomments,
+                                oemail,
+                                ototal,
+                                odelivery,
+                                shippingcost,
                                 created 
                                 )
                                 values ( 
+                                ?,
                                 ?, 
                                 ?, 
                                 ?, 
@@ -50,7 +52,7 @@ class Rate implements IModel
 
         public function getAll()
         {
-                $query ="select * from " . $this->tlb_name ." group by pid";
+                $query ="select * from " . $this->tlb_name;
                 
                 $stat = $this->db->prepare($query);
                 
@@ -68,6 +70,15 @@ class Rate implements IModel
                 $stat->execute($id);
 
                 return $stat->fetchALL(\PDO::FETCH_ASSOC);
+        }
+
+        public function getGroupByIndex(array $index)
+        {
+                /**
+                 * query to retrieve data by another filed which is an Index,
+                 *  but not is the id.
+                 */
+                
         }
 
         public function remove()

@@ -60,7 +60,9 @@ class Balance implements IModel
 
         public function getById(array $id)
         {                
-                $query = "select * from " . $this->tlb_name . " where bemail= ?";
+                $query = "select * from " . $this->tlb_name . " inner join 
+                currency on " . $this->tlb_name . 
+                ".bcurrencycode = currency.ccode where bemail= ?";
                 
                 $stat = $this->db->prepare($query);
 
@@ -69,8 +71,40 @@ class Balance implements IModel
                 return $stat->fetchALL(\PDO::FETCH_ASSOC);
         }
 
+        public function getGroupByIndex(array $index)
+        {
+                /**
+                 * query to retrieve data by another filed which is an Index,
+                 *  but not is the id.
+                 */
+                
+        }
+
         public function remove()
         {
            //     
+        }
+
+        public function updateBalance(array $data)
+        {
+                /**
+                 * Update Balance after checkout
+                 */
+                try
+                {
+                        $query = "update " . $this->tlb_name . " set btotal = ? 
+                        where bemail = ? ";
+
+                        $stat = $this->db->prepare($query);
+
+                        $stat->execute($data);
+
+                }catch(\PDOException $e)
+                {
+                        echo $e->getMessage();
+                }
+                
+
+
         }
 }

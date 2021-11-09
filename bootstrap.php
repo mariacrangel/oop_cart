@@ -97,12 +97,17 @@ $bparameters = [
         date('Y-m-d H:i:s')
 ];
 
+$bupdateparam = [
+        100.00,
+        filter_var('vjurbina@gmail.com', FILTER_VALIDATE_EMAIL)
+];
+
 //$bl->save($bparameters);
 
+//var_dump($bl->updateBalance($bupdateparam));
 //var_dump($bl->getAll());
 
 //var_dump($bl->getById(['vjurbina@gmail.com']));
-
 
 $ph = new Photo();
 
@@ -158,8 +163,8 @@ $iparameters = [
         date('Y-m-d H:i:s')
 ];
 
-$item->save($iparameters);
-var_dump($item->getAll());
-var_dump($item->getById([1]));
+//$item->save($iparameters);
+//var_dump($item->getAll());
+//var_dump($item->getById([1]));
 
 
