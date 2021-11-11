@@ -80,5 +80,10 @@ class Currency implements IModel
         {
            //     
         }
+
+        public function getLastIdInserted()
+        {
+                
+        }
         
 }

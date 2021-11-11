@@ -23,7 +23,6 @@ class Orders implements IModel
         public function save(array $param)
         {
                 //
-                
                 try
                 {
                         $query = "insert into " . $this->tlb_name . "(
@@ -96,4 +95,25 @@ class Orders implements IModel
         {
                 //
         }
+
+        public function getProductsInOrder()
+        {
+
+        }
+
+        public function getLastIdInserted()
+        {
+                $query = " select id from " . $this->tlb_name . " where id = 
+                (select MAX(id) from " . $this->tlb_name . ")";
+                
+                $stat = $this->db->prepare($query);
+
+                $stat->execute();
+
+                $obj = $stat->fetch(\PDO::FETCH_OBJ);
+
+                return $obj->id;
+                
+        }
+
 }

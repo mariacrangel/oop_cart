@@ -107,4 +107,9 @@ class Balance implements IModel
 
 
         }
+
+        public function getLastIdInserted()
+        {
+                
+        }
 }

@@ -25,15 +25,13 @@ class Rate implements IModel
                 {
                         $query = "insert into " . $this->tlb_name . " 
                         ( 
-                                oemail,
-                                ototal,
-                                odelivery,
-                                shippingcost,
+                                pid,
+                                rpoints,
+                                rcomments,
                                 created 
                                 )
                                 values ( 
                                 ?,
-                                ?, 
                                 ?, 
                                 ?, 
                                 ?
@@ -84,5 +82,23 @@ class Rate implements IModel
         public function remove()
         {
            //     
+        }
+
+        public function getAverage()
+        {
+                $query = "select pid, avg(rpoints) as avg from " 
+                . $this->tlb_name . " group by pid";
+
+                $stat = $this->db->prepare($query);
+
+                $stat->execute();
+
+                return $stat->fetchALL(\PDO::FETCH_ASSOC);
+
+        }
+
+        public function getLastIdInserted()
+        {
+                
         }
 }

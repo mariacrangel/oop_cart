@@ -85,4 +85,9 @@ class Photo implements IModel
         {
            //     
         }
+
+        public function getLastIdInserted()
+        {
+                
+        }
 }

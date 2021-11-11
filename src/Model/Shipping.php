@@ -83,4 +83,9 @@ class Shipping implements IModel
         {
            //     
         }
+
+        public function getLastIdInserted()
+        {
+                
+        }
 }

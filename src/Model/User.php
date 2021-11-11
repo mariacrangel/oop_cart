@@ -52,7 +52,6 @@ class User implements IModel
                 
         }
 
-
         public function getAll()
         {
                 $query ="select * from " . $this->tlb_name;
@@ -95,5 +94,10 @@ class User implements IModel
 
                 return $stat->fetch(\PDO::FETCH_OBJ);
 
+        }
+
+        public function getLastIdInserted()
+        {
+                
         }
 }

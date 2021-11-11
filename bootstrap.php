@@ -48,10 +48,10 @@ $product = new Product();
 */
 
 $prparameters = [
-        'Cheese',
         'Cheddar Cheese',
+        'Cheddar Cheese Shullsburg',
         'Kg',
-         3.74,
+        3.74,
         date('Y-m-d H:i:s')
 ];
 
@@ -59,6 +59,22 @@ $prparameters = [
 
 //var_dump($product->getAll());
 //var_dump($product->getById([3]));
+
+
+$ph = new Photo();
+
+$phparameters = [
+        4,
+        'public/product/images/cheese.png',
+        'Cheese',
+        'png',
+        date('Y-m-d H:i:s')
+];
+
+//$ph->save($phparameters);
+//var_dump($ph->getAll());
+//var_dump($ph->getById([3]));
+
 
 $currency = new Currency();
 
@@ -109,24 +125,11 @@ $bupdateparam = [
 
 //var_dump($bl->getById(['vjurbina@gmail.com']));
 
-$ph = new Photo();
-
-$phparameters = [
-        3,
-        'http://cart.local/public/product/images/apple.jpg',
-        'apple1',
-        'jpg',
-        date('Y-m-d H:i:s')
-];
-
-//$ph->save($phparameters);
-//var_dump($ph->getAll());
-//var_dump($ph->getById([3]));
 
 $rating = new Rate();
 
 $rparameters = [
-        13,
+        14,
         5,
         'Excellent beer',
         date('Y-m-d H:i:s')
@@ -136,7 +139,9 @@ $rparameters = [
 
 //var_dump($rating->getAll());
 
-//var_dump($rating->getById([3]));
+//var_dump($rating->getById([14]));
+
+//var_dump($rating->getAverage());
 
 
 $order =  new Orders();

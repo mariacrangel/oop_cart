@@ -93,4 +93,9 @@ class Product implements IModel
         {
                 //
         }
+
+        public function getLastIdInserted()
+        {
+                
+        }
 }

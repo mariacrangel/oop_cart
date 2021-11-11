@@ -52,7 +52,8 @@ class Item implements IModel
         public function getAll()
         {
                 //
-                $query = " select * from " . $this->tlb_name ;
+                $query = " select * from " . $this->tlb_name . " left join product 
+                on " . $this->tlb_name . ".pid = product.pid" ;
 
                 $stat = $this->db->prepare($query);
                 
@@ -64,7 +65,8 @@ class Item implements IModel
         public function getById(array $id)
         {
                 //
-                $query = "select * from " . $this->tlb_name . " where orderid= ?";
+                $query = " select * from " . $this->tlb_name . " left join product 
+                on " . $this->tlb_name . ".pid = product.pid where orderid = ?";
                 
                 $stat = $this->db->prepare($query);
 
@@ -86,5 +88,10 @@ class Item implements IModel
         public function remove()
         {
                 //
+        }
+
+        public function getLastIdInserted()
+        {
+                
         }
 }
