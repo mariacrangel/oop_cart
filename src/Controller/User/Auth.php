@@ -49,14 +49,11 @@ class Auth
         public function login()
         {
                 $storePasswd = $this->user->getPasswd([$this->email]);
-
+                
                 if($this->checkEmail())
                 {
                         if(password_verify($this->password, $storePasswd->upassword))
                         {
-                                session_regenerate_id();
-                                $_SESSION['user'] = $this->email;
-                                $_SESSION['passwd'] = $storePasswd->upassword;
                                 return true;
                         }else
                         {

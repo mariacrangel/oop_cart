@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Controller\Api\User;
+namespace api\user;
 
 require "../../bootstrap.php";
 
@@ -25,6 +25,6 @@ if($data->action === 'logout')
                         'message' => 'Session Finished'
                 ];
         
-                return json_encode($status);
+                echo json_encode($status);
         }
 }

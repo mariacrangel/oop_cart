@@ -28,7 +28,7 @@ class ARate
         {
                         $rate = $this->rate->getById([$id]);
 
-                        return json_encode($rate);
+                        echo json_encode($rate);
         }
 
         public function updateUserBalance($total)
@@ -46,12 +46,12 @@ class ARate
                                 'message' => 'Login Required'
                         ];
 
-                        return json_encode($status);
+                        echo json_encode($status);
                 }else
                 {
                         $balance = $this->balance->updateBalance($data);
 
-                        return json_encode($balance);
+                        echo json_encode($balance);
                 }
 
         }

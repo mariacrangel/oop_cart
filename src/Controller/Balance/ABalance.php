@@ -24,19 +24,11 @@ class ABalance
 
         public function getUserBalance()
         {
-                if(empty($_SESSION['user']))
+                if(!empty($_SESSION['user']))
                 {
-                        $status = [
-                                'code' => 401,
-                                'message' => 'Login Required'
-                        ];
+                        $balance = $this->balance->getById([$_SESSION['user']]);
 
-                        return json_encode($status);
-                }else
-                {
-                        $balance = $this->balance->getById($_SESSION['user']);
-
-                        return json_encode($balance);
+                        return $balance;
                 }
         }
 
@@ -48,19 +40,12 @@ class ABalance
                 ];
 
                 
-                if(empty($_SESSION['user']))
-                {
-                        $status = [
-                                'code' => 401,
-                                'message' => 'Login Required'
-                        ];
-
-                        return json_encode($status);
-                }else
+                if(!empty($_SESSION['user']))
                 {
                         $balance = $this->balance->updateBalance($data);
 
-                        return json_encode($balance);
+
+                        return $balance;
                 }
 
         }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Controller\Api\Balance;
+namespace api\balance;
 
 require "../../bootstrap.php";
 
@@ -16,7 +16,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 use Exception;
 
-use Src\Controller\Api\Balance\ABalance;
+use Src\Controller\Balance\ABalance;
 
 $data = json_decode(file_get_contents("php://input"));
 
@@ -31,7 +31,7 @@ if(empty($_SESSION['user']))
                 'message' => 'Login Required'
         ];
 
-        return json_encode($status);
+        echo json_encode($status);
 
 }else
 {
@@ -44,7 +44,7 @@ if(empty($_SESSION['user']))
                                 'message' => 'Balance Updated'
                         ];
                 
-                        return json_encode($status);
+                        echo json_encode($status);
                 }else
                 {
                         $status = [
@@ -52,7 +52,7 @@ if(empty($_SESSION['user']))
                                 'message' => 'Bad Request'
                         ];
 
-                        return json_encode($status);
+                        echo json_encode($status);
                 }
         }catch(Exception $e)
         {

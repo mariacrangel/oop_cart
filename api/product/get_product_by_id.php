@@ -25,13 +25,13 @@ $prd = $product->getProductById([$id]);
 
 if(!empty($prd))
 {
-        return json_encode($prd);
+        echo json_encode($prd);
 }else
 {
         $status = [
                 'code' => 404,
                 'message' => 'Not Found'
         ];
-        return json_encode($status);
+        echo json_encode($status);
 }
 

@@ -1,6 +1,8 @@
 <?php
 
-namespace Src\Controller\Api\Balance;
+namespace api\balance;
+
+session_start();
 
 require "../../bootstrap.php";
 
@@ -14,7 +16,7 @@ header("Access-Control-Allow-Credentials: true");
 
 header("Access-Control-Allow-Headers: access");
 
-use Src\Controller\Api\Balance\ABalance;
+use Src\Controller\Balance\ABalance;
 
 $balance = new ABalance();
 
@@ -25,13 +27,13 @@ if(empty($_SESSION['user']))
                 'message' => 'Login Required'
         ];
 
-        return json_encode($status);
+        echo json_encode($status);
 
 }else
 {
-        $balance_user = $balance->getUserBalance($_SESSION['user']);
+        $balance_user = $balance->getUserBalance([$_SESSION['user']]);
 
-        return json_encode($balance_user);
+        echo json_encode($balance_user);
        
 }
                 

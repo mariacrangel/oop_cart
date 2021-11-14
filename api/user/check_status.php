@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Controller\Api\User;
+namespace api\user;
 
 require "../../bootstrap.php";
 
@@ -14,7 +14,7 @@ header("Access-Control-Max-Age: 3600");
 
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-use Src\Controller\Api\User\Auth;
+use Src\Controller\User\Auth;
 
 $data = json_decode(file_get_contents("php://input"));
 
@@ -27,13 +27,13 @@ if($authentication->isLoggedIn())
                 'message' => 'Already Logged'
         ];
 
-        return json_encode($status);
+        echo json_encode($status);
 }else
 {
         $status = [
                 'code' => 401,
                 'message' => 'Login Required'
         ];
-        return json_encode($status);
+        echo json_encode($status);
 }
 

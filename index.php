@@ -6,11 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" href="#">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart JS</title>
+    <title>Shopping Cart </title>
     <link rel="stylesheet" href="public/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
-
 </head>
 
 <body>
@@ -21,9 +19,9 @@
         </div>
         <header>
             <nav>
-                <ul>
+                <ul id="menu">
                     <li class="btn home">
-                        <a href="public/">
+                        <a href="/">
                             <img src="public/icons/home.png" alt=""> Home
                         </a>
                     </li>
@@ -37,15 +35,16 @@
                             Grocery
                         </a>
                     </li>
-                    <li class="active">
-                        <a href="#">
-
+                    <li>
+                        <span id="balance" class="balance"></span>
+                    </li>
+                    <li id="llogin">
+                        <a onclick="document.getElementById('idlogin').style.display='block'" style="width:auto;">
+                            <span id="loginStatus" class="login">LogIn</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            Bread
-                        </a>
+                        <button id="logout" class="logout"></button>
                     </li>
                 </ul>
             </nav>
@@ -105,28 +104,76 @@
                 <!-- render cart items here -->
             </div>
             <div class="cart-footer">
+                <label>Shipping UPS
+                        <input type="radio" value="ups" name="shipping" id="ups" onclick="noticeShipping();">
+                        <span ></span>
+                      </label>
+                <label>PickUp
+                        <input type="radio" value="pickup" name="shipping" id="pickup">
+                        <span ></span>
+                      </label>
                 <div class="subtotal">
                     Subtotal (0 items): $0
                 </div>
-                <div class="checkout">
+
+                <div class="checkout" onclick="checkShipping()">
                     Proceed to checkout
                 </div>
             </div>
         </div>
     </div>
 
+    <div id="idlogin" class="modal">
+        <form class="modal-content animate" id="login" method="post">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('idlogin').style.display='none'" class="close" title="Close Modal">×</span>
+                <img src="public/img/logo.png" alt="Logo" class="avatar">
+            </div>
+
+            <div class="container">
+                <label><b>Username:</b></label>
+                <span id="errMessage" class="err" ></span>
+                <input id="uemail" type="text" placeholder="Enter email" name="uemail" autocomplete="on" required>
+
+                <label><b>Password:</b></label>
+                <input id="upassword" type="password" placeholder="Enter Password" name="upassword" autocomplete="on" required>
+
+                <button type="submit" onclick="JavaScript:login();">LogIn</button>
+                <input type=" checkbox " checked="checked "> Remember me
+            </div>
+
+            <div class="container " style="background-color:#f1f1f1 ">
+                <button type="submit " onclick="document.getElementById( 'idlogin').style.display='none' " class="cancelbtn ">Cancel</button>
+                <span class="psw ">Forgot <a href="# ">password?</a></span>
+            </div>
+        </form>
+    </div>
+
     <script>
-        const porductsListEl = document.querySelector(".products-list");
-        const seeMoreBtn = document.querySelector(".see-more-btn");
+        const porductsListEl = document.querySelector(".products-list ");
+        const seeMoreBtn = document.querySelector(".see-more-btn ");
 
         seeMoreBtn.addEventListener('click', () => {
             porductsListEl.scrollIntoView({
                 behavior: "smooth"
             })
         })
+        const myForm = document.getElementById('idlogin');
+
+        myForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            login();
+
+            
+        })
+
+        const myLogout = document.querySelector(".logout");
+        myLogout.addEventListener('click', function() {
+            logout();
+        })
     </script>
-    <script src="public/products.js"></script>
-    <script src="public/app.js"></script>
+    <script src="public/app.js "></script>
 </body>
 
 </html>

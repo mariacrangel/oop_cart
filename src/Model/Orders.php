@@ -22,7 +22,6 @@ class Orders implements IModel
 
         public function save(array $param)
         {
-                //
                 try
                 {
                         $query = "insert into " . $this->tlb_name . "(
@@ -42,7 +41,10 @@ class Orders implements IModel
 
                         $stat = $this->db->prepare($query);
 
-                        $stat->execute($param);
+                        $saved = $stat->execute($param);
+
+                        return $saved;
+                        
 
                 }catch(\PDOException $e)
                 {
@@ -81,7 +83,10 @@ class Orders implements IModel
                  *  but not is the id.
                  */
 
-                $query = "select * from " . $this->tlb_name . " where oemail= ?";
+                $query = "select * from " . $this->tlb_name . "left join user on
+                " . $this->tlb_name. ".oemail = user.uemail left join item on
+                " . $this->tlb_name . ".id = item.orderid where " 
+                . $this->tlb_name . ".oemail= ? and item.orederid = ? ";
                 
                 $stat = $this->db->prepare($query);
 
@@ -93,7 +98,6 @@ class Orders implements IModel
 
         public function remove()
         {
-                //
         }
 
         public function getProductsInOrder()

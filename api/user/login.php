@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Controller\Api\User;
+namespace api\user;
 
 require "../../bootstrap.php";
 
-use Src\Controller\Api\User\Auth;
+use Src\Controller\User\Auth;
 
 header("Access-Control-Allow-Origin: *");
 
@@ -16,24 +16,32 @@ header("Access-Control-Max-Age: 3600");
 
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-$data = json_decode(file_get_contents("php://input"));
+$creden = file_get_contents("php://input");
 
-$authentication = new Auth($data->email, $data->password);
+$data = explode(',',$creden);
+
+$authentication = new Auth($data[0], $data[1]);
 
 if($authentication->login())
 {
+        session_start();
+
+        $_SESSION['user'] = $data[0];
+
+        setcookie("user", $data[0]);
+
         $status = [
                 'code' => 200,
                 'message' => 'Login Successfuly'
         ];
         
-        return json_encode($status);
+        echo json_encode($status);
 }else
 {
         $status = [
                 "code" => 401,
                 'message' => 'Wrong Email or password, please try Again'
         ];
-        return json_encode($status);
+        echo json_encode($status);
 }
 

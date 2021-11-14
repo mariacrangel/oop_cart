@@ -41,7 +41,9 @@ class Item implements IModel
 
                         $stat = $this->db->prepare($query);
 
-                        $stat->execute($param);
+                        $saved = $stat->execute($param);
+
+                        return $saved;
 
                 }catch(\PDOException $e)
                 {
