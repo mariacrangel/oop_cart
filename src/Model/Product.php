@@ -98,4 +98,9 @@ class Product implements IModel
         {
                 
         }
+        public function __destruct()
+        {
+             $this->db = null;
+
+        }
 }

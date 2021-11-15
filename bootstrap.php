@@ -24,7 +24,7 @@ $loader->load();
 $user = new User();
 
 $parameters = [
-        filter_var('vjurbina@gmail.com', FILTER_VALIDATE_EMAIL), 
+        filter_var('maria.rangel@gmail.com', FILTER_VALIDATE_EMAIL), 
         'Vic', 
         'Urb', 
         password_hash('mypass', PASSWORD_DEFAULT), 
@@ -33,7 +33,7 @@ $parameters = [
         ];
 //$user->save($parameters);
 //var_dump($user->getAll());
-//var_dump($user->getById(['vjurbina@gmail.com']));
+//var_dump($user->getById(['maria.rangel@gmail.com']));
 
 $product = new Product();
 
@@ -94,7 +94,7 @@ $cparameters = [
 $shipping = new Shipping();
 
 $shparameters = [
-        filter_var('vjurbina@gmail.com', FILTER_VALIDATE_EMAIL),
+        filter_var('maria.rangel@gmail.com', FILTER_VALIDATE_EMAIL),
         'My house',
         'UPS',
         date('Y-m-d H:i:s')
@@ -108,22 +108,23 @@ $bl = new Balance();
 
 $bparameters = [
         'usd',
-        filter_var('vjurbina@gmail.com', FILTER_VALIDATE_EMAIL),
+        filter_var('maria.rangel@gmail.com', FILTER_VALIDATE_EMAIL),
         100.00,
         date('Y-m-d H:i:s')
 ];
 
 $bupdateparam = [
         100.00,
-        filter_var('vjurbina@gmail.com', FILTER_VALIDATE_EMAIL)
+        filter_var('maria.rangel@gmail.com', FILTER_VALIDATE_EMAIL)
 ];
+
 
 //$bl->save($bparameters);
 
 //var_dump($bl->updateBalance($bupdateparam));
 //var_dump($bl->getAll());
 
-//var_dump($bl->getById(['vjurbina@gmail.com']));
+//var_dump($bl->getById(['maria.rangel@gmail.com']));
 
 
 $rating = new Rate();
@@ -147,7 +148,7 @@ $rparameters = [
 $order =  new Orders();
 
 $oparameters = [
-        filter_var('vjurbina@gmail.com', FILTER_VALIDATE_EMAIL),
+        filter_var('maria.rangel@gmail.com', FILTER_VALIDATE_EMAIL),
         12.00,
         true,
         5.00,
@@ -157,7 +158,7 @@ $oparameters = [
 //$order->save($oparameters);
 //var_dump($order->getAll());
 //var_dump($order->getById([1]));
-//var_dump($order->getGroupByIndex(['vjurbina@gmail.com']));
+//var_dump($order->getGroupByIndex(['maria.rangel@gmail.com']));
 
 $item = new Item();
 

@@ -46,15 +46,8 @@ class AOrders
                 try
                 {
                         $status = $this->order->save($data);
-                        //var_dump($status);
 
-                        if($status)
-                        {
-                                return true;
-                        }else
-                        {
-                                return false;
-                        }
+                        return $status;
 
                 }catch(Exception $e)
                 {

@@ -93,4 +93,9 @@ class DatabaseConnect extends PDO implements IConnection
         {
                 return $this->dbconn;
         }
+        public function __destruct()
+        {
+             $this->dbconn = null;
+
+        }
 }

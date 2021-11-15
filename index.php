@@ -174,6 +174,9 @@
         })
     </script>
     <script src="public/app.js "></script>
+    <script src="public/products.js "></script>
+    <script src="public/login.js "></script>
+    <script src="public/balance.js "></script>
 </body>
 
 </html>

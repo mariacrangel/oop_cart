@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS rate (
         pid int(11) NOT NULL,
         rpoints int(11) NOT NULL,
         rcomments text NULL,
-        created datetime NOT NULL DEFAULT current_timestamp(),
+        created datetime NOT NULL,
         PRIMARY KEY (rid,pid),
         FOREIGN KEY (pid) REFERENCES product(pid)
 );
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS orders (
         ototal decimal(10,2) NOT NULL,
         odelivery boolean NOT NULL,
         shippingcost decimal(10,2) NOT NULL,
-        created datetime NOT NULL DEFAULT current_timestamp(),
+        created datetime NOT NULL,
         PRIMARY KEY (id),
         FOREIGN KEY (oemail) REFERENCES user(uemail)
 );
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS item (
         orderid int(11) NOT NULL,
         pid int(11) NOT NULL,
         iquantity int(11) NOT NULL,
-        created datetime NOT NULL DEFAULT current_timestamp(),
+        created datetime NOT NULL,
         PRIMARY KEY (orderid, pid),
         FOREIGN KEY (orderid) REFERENCES orders(id),
         FOREIGN KEY (pid) REFERENCES product(pid)

@@ -40,9 +40,7 @@ class Orders implements IModel
                                 )";
 
                         $stat = $this->db->prepare($query);
-
                         $saved = $stat->execute($param);
-
                         return $saved;
                         
 
@@ -83,10 +81,11 @@ class Orders implements IModel
                  *  but not is the id.
                  */
 
-                $query = "select * from " . $this->tlb_name . "left join user on
+                $query = "select * from " . $this->tlb_name . " left join user on
                 " . $this->tlb_name. ".oemail = user.uemail left join item on
-                " . $this->tlb_name . ".id = item.orderid where " 
-                . $this->tlb_name . ".oemail= ? and item.orederid = ? ";
+                " . $this->tlb_name . ".id = item.orderid left join balance on 
+                " . $this->tlb_name . ".oemail = balance.bemail left join product on 
+                item.pid = product.pid where " . $this->tlb_name . ".oemail= ? and item.orderid = ? ";
                 
                 $stat = $this->db->prepare($query);
 

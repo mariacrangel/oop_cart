@@ -1,57 +1,20 @@
 var products = [];
 var total = '';
 var symbol = '';
-const productsEl = document.querySelector(".products");
 const cartItemsEl = document.querySelector(".cart-items");
 const subtotalEl = document.querySelector(".subtotal");
 const totalItemsInCartEl = document.querySelector(".total-items-in-cart");
+const productsEl = document.querySelector(".products");
 
-function renderProducts() {
-    fetch('http://cart.local/api/product/get_all_products.php').then(function(response) {
-        if (response.ok) {
-            return response.json();
-        } else {
-            return Promise.reject(response);
-        }
-    }).then(function(data) {
-        // This is the JSON from our response
-        products.push(...data);
-        data.forEach((product) => {
-            productsEl.innerHTML += `
-            <div class="item">
-                <div class="item-container">
-                    <div class="item-img">
-                        <img src="${product.phslug}" alt="${product.pname}">
-                    </div>
-                    <div class="desc">
-                        <h2>${product.pname}</h2>
-                        <h2><small>$</small>${product.psellprice}</h2>
-                        <p>
-                            ${product.pdescription}
-                        </p>
-                    </div>
-                    <div class="add-to-wishlist">
-                        <img src="public/icons/heart.png" alt="add to wish list">
-                    </div>
-                    <div class="add-to-cart" onclick="addToCart(${product.pid})">
-                        <img src="public/icons/bag-plus.png" alt="add to cart">
-                    </div>
-                </div>
-            </div>
-        `;
-        });
+window.onload = function() {
+    if (checkLogIn()) {
+        getBalance();
+        document.getElementById("loginStatus").style.display = "none";
+        document.getElementById("llogin").style.display = "none";
+        addLogout();
+    }
 
-        if (checkLogIn()) {
-            changeStatus();
-        }
-
-    }).catch(function(err) {
-        console.warn('Something went wrong.', err);
-    });
-}
-
-renderProducts();
-
+};
 let cart = JSON.parse(localStorage.getItem("BASKET")) || [];
 
 updateCart();
@@ -162,7 +125,6 @@ function checkShipping() {
             return;
         } else {
             if (checkLogIn()) {
-                changeStatus();
                 sendOrder();
             }
         }
@@ -207,43 +169,6 @@ function getCookie(name) {
     }
 }
 
-function login() {
-    let strJson = document.getElementById("uemail").value + ',' + document.getElementById("upassword").value;
-    console.log(strJson);
-    fetch('http://cart.local/api/user/login.php', {
-        method: 'POST',
-        body: strJson,
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-        }
-    }).then(function(response) {
-        if (response.ok) {
-            return response.json();
-        }
-        return Promise.reject(response);
-    }).then(function(data) {
-        if (data.code == 200) {
-            document.cookie = 'user=' + document.getElementById("uemail").value;
-            closeModal();
-            changeStatus();
-            getBalance();
-        } else {
-            let err = document.getElementById('errMessage');
-            err.textContent = data.message;
-            return;
-
-        }
-
-    }).catch(function(error) {
-        console.warn('Something went wrong.', error);
-    });
-
-}
-
-function closeModal() {
-    document.querySelector(".modal").style.display = "none";
-}
-
 function changeStatus() {
     document.getElementById("loginStatus").style.display = "none";
     document.getElementById("llogin").style.display = "none";
@@ -265,27 +190,6 @@ function logout() {
 
 function noticeShipping() {
     alert("It will charge $5 to you Bill");
-}
-
-function getBalance() {
-    fetch('http://cart.local/api/balance/get_balance.php').then(function(response) {
-        if (response.ok) {
-            return response.json();
-        } else {
-            return Promise.reject(response);
-        }
-    }).then(function(data) {
-        // This is the JSON from our response
-        data.forEach((balance) => {
-            total = balance.btotal;
-            symbol = balance.symbol;
-        });
-
-        document.getElementById('balance').textContent = "Balance:  " + symbol + total;
-
-    }).catch(function(error) {
-        console.warn('Something went wrong.', error);
-    });;
 }
 
 function sendOrder() {
@@ -312,7 +216,7 @@ function sendOrder() {
 
     const order = email + ',' + totalOrder + ',' + delivery + ',' + shippCost + ',' + created_string;
 
-    fetch('http://cart.local/api/order/save_order.php', {
+    fetch('http://104.248.68.28:8082/api/order/save_order.php', {
         method: 'POST',
         body: order,
         headers: {
@@ -324,10 +228,12 @@ function sendOrder() {
         }
         return Promise.reject(response);
     }).then(function(data) {
-        sendItem();
-        getBalance();
-        window.localStorage.clear();
-
+        console.log(data);
+        if (data.code == 200) {
+            sendItem();
+            getBalance();
+            window.location.href = 'http://104.248.68.28:8082/detail.php';
+        }
     }).catch(function(error) {
         console.warn('Something went wrong.', error);
     });
@@ -340,6 +246,7 @@ function whichShipping() {
     for (const shp of shps) {
         if (shp.checked) {
             selectedValue = shp.value;
+            console.log(shp.value);
             break;
         }
     }
@@ -348,7 +255,7 @@ function whichShipping() {
 
 function sendItem() {
     console.log(cart);
-    fetch('http://cart.local/api/order/save_items.php', {
+    fetch('http://104.248.68.28:8082/api/order/save_items.php', {
         method: 'PUT',
         body: JSON.stringify(cart),
         headers: {
